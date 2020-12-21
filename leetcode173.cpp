@@ -91,63 +91,63 @@ int main(int argc, char **argv)
     return RUN_ALL_TESTS();
 }
 
-TEST(LeetCodeTest, num173x001)
+TEST_F(LeetCodeTest, num173x001)
 {
     int res = bSTIteratorNext(obj);
     
     ASSERT_EQ(res, 3);
 }
 
-TEST(LeetCodeTest, num173x002)
+TEST_F(LeetCodeTest, num173x002)
 {
     int res = bSTIteratorNext(obj);
     
     ASSERT_EQ(res, 7);
 }
 
-TEST(LeetCodeTest, num173x003)
+TEST_F(LeetCodeTest, num173x003)
 {
     bool res = bSTIteratorHasNext(obj);
     
     ASSERT_EQ(res, true);
 }
 
-TEST(LeetCodeTest, num173x004)
+TEST_F(LeetCodeTest, num173x004)
 {
     int res = bSTIteratorNext(obj);
     
     ASSERT_EQ(res, 9);
 }
 
-TEST(LeetCodeTest, num173x005)
+TEST_F(LeetCodeTest, num173x005)
 {
     bool res = bSTIteratorHasNext(obj);
     
     ASSERT_EQ(res, true);
 }
 
-TEST(LeetCodeTest, num173x006)
+TEST_F(LeetCodeTest, num173x006)
 {
     int res = bSTIteratorNext(obj);
     
     ASSERT_EQ(res, 15);
 }
 
-TEST(LeetCodeTest, num173x007)
+TEST_F(LeetCodeTest, num173x007)
 {
     bool res = bSTIteratorHasNext(obj);
     
     ASSERT_EQ(res, true);
 }
 
-TEST(LeetCodeTest, num173x008)
+TEST_F(LeetCodeTest, num173x008)
 {
     int res = bSTIteratorNext(obj);
     
     ASSERT_EQ(res, 20);
 }
 
-TEST(LeetCodeTest, num173x009)
+TEST_F(LeetCodeTest, num173x009)
 {
     bool res = bSTIteratorHasNext(obj);
     
