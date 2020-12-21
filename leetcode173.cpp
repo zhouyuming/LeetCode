@@ -48,9 +48,30 @@ class FooEnvironment : public testing::Environment
 public:
     virtual void SetUp()
     {
+        root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+        memset(root, 0, sizeof(struct TreeNode));
+        root->val = 7;
+        struct TreeNode* tmp = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+        memset(tmp, 0, sizeof(struct TreeNode));
+        tmp->val = 3;
+        root->left = tmp;
+        struct TreeNode* tmp1 = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+        memset(tmp1, 0, sizeof(struct TreeNode));
+        tmp1->val = 15;
+        root->right = tmp1;
+        struct TreeNode* tmp2 = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+        memset(tmp2, 0, sizeof(struct TreeNode));
+        tmp2->val = 9;
+        tmp1->left = tmp2;
+        struct TreeNode* tmp3 = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+        memset(tmp3, 0, sizeof(struct TreeNode));
+        tmp3->val = 20;
+        tmp1->right = tmp3;
+        obj = bSTIteratorCreate(root);
     }
     virtual void TearDown()
     {
+        bSTIteratorFree(obj);
     }
 };
 
