@@ -1,3 +1,5 @@
+#include <gtest/gtest.h>
+
 int min(int a, int b)
 {
     return (a < b) ? a : b;
@@ -11,7 +13,7 @@ int max(int a, int b)
 int calculateMinimumHP(int** dungeon, int dungeonSize, int* dungeonColSize){
     int R = dungeonSize;
     int C = *dungeonColSize;
-
+    int dp[R][C];
     dp[R - 1][C - 1] = 1 - min(dungeon[R - 1][C - 1], 0);
     for (int i = R - 2; i >= 0; i--) {
         dp[i][C - 1] = max(dp[i + 1][C - 1] - dungeon[i][C - 1], 1);
@@ -26,3 +28,5 @@ int calculateMinimumHP(int** dungeon, int dungeonSize, int* dungeonColSize){
     }
     return dp[0][0];
 }
+
+
