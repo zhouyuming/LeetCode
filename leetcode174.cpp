@@ -29,4 +29,29 @@ int calculateMinimumHP(int** dungeon, int dungeonSize, int* dungeonColSize){
     return dp[0][0];
 }
 
+int main(int argc, char **argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
 
+TEST(LeetCode, num174x001)
+{
+    int res;
+    int **dungeon = (int**)malloc(3 * sizeof(int*));
+    dungeon[0] = (int*)malloc(3 * sizeof(int));
+    dungeon[1] = (int*)malloc(3 * sizeof(int));
+    dungeon[2] = (int*)malloc(3 * sizeof(int));
+    dungeon[0][0] = -2;
+    dungeon[0][1] = -3;
+    dungeon[0][2] = 3;
+    dungeon[1][0] = -5;
+    dungeon[1][1] = -10;
+    dungeon[1][2] = 1;
+    dungeon[2][0] = 10;
+    dungeon[2][1] = 30;
+    dungeon[2][2] = -5;
+    int dungeonColSize[3] = {3, 3, 3};
+    res = calculateMinimumHP(dungeon, 3, dungeonColSize);
+    ASSERT_EQ(res, 7);
+}
