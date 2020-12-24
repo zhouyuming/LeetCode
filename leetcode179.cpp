@@ -12,7 +12,7 @@ int mycmp(const void* a, const void* b)
 char * largestNumber(int* nums, int numsSize){
     qsort(nums, numsSize, sizeof(int), mycmp);
     if (nums[0] == 0) {
-        return 0;
+        return "0";
     }
     char* result = NULL;
     char* p = NULL;
