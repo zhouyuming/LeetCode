@@ -1,3 +1,4 @@
+#include <gtest/gtest.h>
 
 int mycmp(const void* a, const void* b)
 {
@@ -15,11 +16,26 @@ char * largestNumber(int* nums, int numsSize){
     }
     char* result = NULL;
     char* p = NULL;
-    result = malloc(sizeof(char) * 1000);
+    result = (char*)malloc(sizeof(char) * 1000);
     p = result;
     for (int i = 0; i < numsSize; i++) {
         sprintf(p, "%d", nums[i]);
         p += strlen(p);
     }
     return result;
+}
+
+int main(int argc, char **argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+TEST(LeetCode, num179x001)
+{
+    char* res = NULL;
+    int nums[2] = {10, 2};
+    res = largestNumber(nums, 2);
+    int r = strcmp(res, "210");
+    ASSERT_EQ(r, 0);
 }
