@@ -48,3 +48,21 @@ TEST(LeetCode, num179x002)
     int r = strcmp(res, "9534330");
     ASSERT_EQ(r, 0);
 }
+
+TEST(LeetCode, num179x003)
+{
+    char* res = NULL;
+    int nums[1] = {1};
+    res = largestNumber(nums, 1);
+    int r = strcmp(res, "1");
+    ASSERT_EQ(r, 0);
+}
+
+TEST(LeetCode, num179x004)
+{
+    char* res = NULL;
+    int nums[1] = {10};
+    res = largestNumber(nums, 1);
+    int r = strcmp(res, "10");
+    ASSERT_EQ(r, 0);
+}
