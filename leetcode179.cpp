@@ -39,3 +39,12 @@ TEST(LeetCode, num179x001)
     int r = strcmp(res, "210");
     ASSERT_EQ(r, 0);
 }
+
+TEST(LeetCode, num179x002)
+{
+    char* res = NULL;
+    int nums[5] = {3, 30, 34, 5, 9};
+    res = largestNumber(nums, 5);
+    int r = strcmp(res, "9534330");
+    ASSERT_EQ(r, 0);
+}
