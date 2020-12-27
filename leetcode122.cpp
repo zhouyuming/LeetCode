@@ -26,3 +26,19 @@ TEST(LeetCode, num122x001)
     res = maxProfit(prices, 6);
     ASSERT_EQ(res, 7);
 }
+
+TEST(LeetCode, num122x002)
+{
+    int res;
+    int prices[5] = {1, 2, 3, 4, 5};
+    res = maxProfit(prices, 5);
+    ASSERT_EQ(res, 4);
+}
+
+TEST(LeetCode, num122x003)
+{
+    int res;
+    int prices[5] = {7, 6, 4, 3, 1};
+    res = maxProfit(prices, 5);
+    ASSERT_EQ(res, 0);
+}
