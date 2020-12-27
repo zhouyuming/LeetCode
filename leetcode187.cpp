@@ -51,3 +51,23 @@ char ** findRepeatedDnaSequences(char * s, int* returnSize){
     *returnSize = rsize;
     return res;
 }
+
+int main(int argc, char **argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+TEST(LeetCode, num187x001)
+{
+    int res;
+    findRepeatedDnaSequences((char*)"AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT", &res);
+    ASSERT_EQ(res, 2);
+}
+
+TEST(LeetCode, num187x002)
+{
+    int res;
+    findRepeatedDnaSequences((char*)"AAAAAAAAAAAAA", &res);
+    ASSERT_EQ(res, 1);
+}
