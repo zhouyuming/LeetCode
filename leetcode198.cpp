@@ -26,13 +26,13 @@ TEST(LeetCode, num198x001)
     int res;
     int nums[4] = {1, 2, 3, 1};
     res = rob(nums, 4);
-    EXPECT_EQ(res, 1);
+    EXPECT_EQ(res, 4);
 }
 
-TEST(LeetCode, num198x001)
+TEST(LeetCode, num198x002)
 {
     int res;
-    int nums[4] = {1, 2, 3, 1};
-    res = rob(nums, 4);
-    EXPECT_EQ(res, 1);
+    int nums[5] = {2, 7, 9, 3, 1};
+    res = rob(nums, 5);
+    EXPECT_EQ(res, 12);
 }
