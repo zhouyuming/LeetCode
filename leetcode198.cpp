@@ -1,3 +1,5 @@
+#include <gtest/gtest.h>
+
 int rob(int* nums, int numsSize){
     if (!numsSize) {
         return 0;
@@ -11,4 +13,26 @@ int rob(int* nums, int numsSize){
         dp[i][1] = nums[i] + dp[i - 1][0];
     }
     return dp[numsSize - 1][0] > dp[numsSize - 1][1] ? dp[numsSize - 1][0] : dp[numsSize - 1][1];
+}
+
+int main(int argc, char **argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+TEST(LeetCode, num198x001)
+{
+    int res;
+    int nums[4] = {1, 2, 3, 1};
+    res = rob(nums, 4);
+    EXPECT_EQ(res, 1);
+}
+
+TEST(LeetCode, num198x001)
+{
+    int res;
+    int nums[4] = {1, 2, 3, 1};
+    res = rob(nums, 4);
+    EXPECT_EQ(res, 1);
 }
