@@ -38,6 +38,14 @@ int minSubArrayLen(int s, int* nums, int numsSize){
     return ans == INT_MAX ? 0 : ans;
 }*/
 
+int minSubArrayLen(int s, int* nums, int numsSize){
+    if (numsSize == 0) {
+        return 0;
+    }
+    
+    return ans == INT_MAX ? 0 : ans;
+}
+
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
