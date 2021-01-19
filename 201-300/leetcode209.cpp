@@ -2,7 +2,7 @@
 #include <math.h>
 #include <climits>
 
-int lower_bound(int *a, int l, int r, int q)
+/*int lower_bound(int *a, int l, int r, int q)
 {
     if (a[r] < q) {
         return -1;
@@ -36,7 +36,7 @@ int minSubArrayLen(int s, int* nums, int numsSize){
         }
     }
     return ans == INT_MAX ? 0 : ans;
-}
+}*/
 
 int main(int argc, char **argv)
 {
