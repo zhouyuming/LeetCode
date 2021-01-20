@@ -1,10 +1,72 @@
 #include <gtest/gtest.h>
 
-int *edges = (int**)
+/*int **edges;
+int *edgeColSize;
+int *visited;
+int *result;
+int resultSize;
+bool valid;
+
+void dfs(int u)
+{
+    visited[u] = 1;
+    for (int i = 0; i < edgeColSize[u]; i++) {
+        if (visited[edges[u][i]] == 0) {
+            dfs(edges[u][i]);
+            if (!valid) {
+                return;
+            }
+        } else if (visited[edges[u][i]] == 1) {
+            valid = false;
+            return;
+        }
+    }
+    visited[u] = 2;
+    result[resultSize++] = u;
+}
 
 int* findOrder(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize, int* returnSize){
-
-}
+    valid = true;
+    edges = (int**)malloc(sizeof(int*) * numCourses);
+    for (int i = 0; i < numCourses; i++) {
+        edges[i] = (int*)malloc(0);
+    }
+    edgeColSize = (int*)malloc(sizeof(int) * numCourses);
+    memset(edgeColSize, 0, sizeof(int) * numCourses);
+    visited = (int*)malloc(sizeof(int) * numCourses);
+    memset(visited, 0, sizeof(int) * numCourses);
+    for (int i = 0; i < prerequisitesSize; i++) {
+        int a = prerequisites[i][1];
+        int b = prerequisites[i][0];
+        edgeColSize[a]++;
+        edges[a] = (int*)realloc(edges[a], sizeof(int) * edgeColSize[a]);
+        edges[a][edgeColSize[a] - 1] = b;
+    }
+    result = (int*)malloc(sizeof(int) * numCourses);
+    resultSize = 0;
+    for (int i = 0; i < numCourses; i++) {
+        if (!visited[i]) {
+            dfs(i);
+        }
+    }
+    for (int i = 0; i < numCourses; i++) {
+        free(edges[i]);
+    }
+    free(edges);
+    free(edgeColSize);
+    free(visited);
+    if (!valid) {
+        *resultSize = 0;
+    } else {
+        *returnSize = numCourses;
+    }
+    for (int i = 0; i < numCourses / 2; i++) {
+        int t = nums[i];
+        result[i] = result[numCourses - i - 1];
+        result[numCourses - i - 1] = t;
+    }
+    return result;
+}*/
 
 int main(int argc, char **argv)
 {
