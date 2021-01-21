@@ -21,10 +21,19 @@ void initTree()
 void insertWord(struct TrieTree *dict, char *word)
 {
     int len = strlen(word);
-
+    int offset;
+    struct TrieTree *tmp = dict;
     for (int i = 0; i < len; i++) {
-        
+        offset = word[i] - 'a';
+        if (tmp->link[offset] == NULL) {
+            tmp->link[offset] = &buff[idx++];
+            memset(tmp->link[offset]->link, 0, sizeof(struct TrieTree*) * 26);
+            tmp->link[offset]->isEnd = 0;
+        }
+        tmp = tmp->link[offset]; 
     }
+    tmp->isEnd = 1;
+    return;
 }
 
 char ** findWords(char** board, int boardSize, int* boardColSize, char ** words, int wordsSize, int* returnSize){
