@@ -2,7 +2,7 @@
 struct TrieTree {
     struct TrieTree *link[26];
     int isEnd;
-}
+};
 
 struct TrieTree *dict = NULL;
 int idx = 0;
@@ -40,7 +40,7 @@ struct StackNode {
     int top;
     char *data;
     int size;
-}
+};
 
 struct StackNode *initStack(int size)
 {
@@ -97,7 +97,7 @@ void dfs(char **board, int rowSz, int colSz, char **res, int *retSz, char **mask
     }
     d = d->link[offset];
     push(s, board[i][j]);
-    mark[i][j] = 1;
+    mask[i][j] = 1;
 
     if (d->isEnd == 1) {
         recordResult(s, res, retSz);
@@ -129,7 +129,8 @@ char ** findWords(char** board, int boardSize, int* boardColSize, char ** words,
 
     for (int i = 0; i < boardSize; i++) {
         for (int j = 0; j < *boardColSize; j++) {
-            dfs();
+            dfs(board, boardSize, *boardColSize, res, returnSize, mask, i, j, dict, s);
         }
     }
+    return res;
 }
