@@ -1,5 +1,6 @@
+#include <gtest/gtest.h>
 
-typedef struct {
+typedef struct wordDictionary {
     unsigned int cnt;
     struct wordDictionary *next[26];    
 } WordDictionary;
@@ -66,4 +67,27 @@ void wordDictionaryFree(WordDictionary* obj) {
         }
     }
     free(obj);  
+}
+
+int main(int argc, char **argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+TEST(LeetCode, num211x001)
+{
+    bool res;
+    WordDictionary *obj = wordDictionaryCreate();
+    wordDictionaryAddWord(obj, (char*)"bad");
+    wordDictionaryAddWord(obj, (char*)"dad");
+    wordDictionaryAddWord(obj, (char*)"mad");
+    res = wordDictionarySearch(obj, (char*)"pad");
+    EXPECT_EQ(res, false);
+    res = wordDictionarySearch(obj, (char*)"bad");
+    EXPECT_EQ(res, true);
+    res = wordDictionarySearch(obj, (char*)".ad");
+    EXPECT_EQ(res, true);
+    res = wordDictionarySearch(obj, (char*)"b..");
+    EXPECT_EQ(res, true);
 }
