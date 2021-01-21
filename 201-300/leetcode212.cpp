@@ -108,6 +108,7 @@ void dfs(char **board, int rowSz, int colSz, char **res, int *retSz, char **mask
     dfs(board, rowSz, colSz, res, retSz, mask, i, j - 1, d, s);
     mask[i][j] = 0;
     pop(s);
+    return;
 }
 
 char ** findWords(char** board, int boardSize, int* boardColSize, char ** words, int wordsSize, int* returnSize){
@@ -119,7 +120,7 @@ char ** findWords(char** board, int boardSize, int* boardColSize, char ** words,
     char **res = (char**)malloc(sizeof(char*) * 1000);
     *returnSize = 0;
 
-    char **mask = (char**)malloc(sizeof(char*) * (*boardColSize));
+    char **mask = (char**)malloc(sizeof(char*) * boardSize);
     for (int i = 0; i < boardSize; i++) {
         mask[i] = (char*)malloc(sizeof(char) * (*boardColSize));
         memset(mask[i], 0, sizeof(char) * (*boardColSize));
