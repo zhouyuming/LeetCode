@@ -68,6 +68,57 @@ int* findOrder(int numCourses, int** prerequisites, int prerequisitesSize, int* 
     return result;
 }*/
 
+int* findOrder(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize, int* returnSize){
+    int** edges = (int**)malloc(sizeof(int*) * numCourses);
+    for (int i = 0; i < numCourses; i++) {
+        edges[i] = (int*)malloc(0);
+    }
+    int edgeColSize[numCourses];
+    memset(edgeColSize, 0, sizeof(edgeColSize));
+    int indeg[numCourses];
+    memset(indeg, 0, sizeof(indeg));
+    for (int i = 0; i < prerequisitesSize; ++i) {
+        int a = prerequisites[i][1], b = prerequisites[i][0];
+        edgeColSize[a]++;
+        edges[a] = (int*)realloc(edges[a], sizeof(int) * edgeColSize[a]);
+        edges[a][edgeColSize[a] - 1] = b;
+        ++indeg[b];
+    }
+    int q[numCourses];
+    int l = 0, r = -1;
+    for (int i = 0; i < numCourses; ++i) {
+        if (indeg[i] == 0) {
+            q[++r] = i;
+        }
+    }
+
+    int* result = (int*)malloc(sizeof(int) * numCourses);
+    int resultSize = 0;
+
+    int visited = 0;
+    while (l <= r) {
+        ++visited;
+        int u = q[l++];
+        result[resultSize++] = u;
+        for (int i = 0; i < edgeColSize[u]; ++i) {
+            --indeg[edges[u][i]];
+            if (indeg[edges[u][i]] == 0) {
+                q[++r] = edges[u][i];
+            }
+        }
+    }
+    for (int i = 0; i < numCourses; i++) {
+        free(edges[i]);
+    }
+    free(edges);
+    if (visited == numCourses) {
+        *returnSize = numCourses;
+    } else {
+        *returnSize = 0;
+    }
+    return result;
+}
+
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
