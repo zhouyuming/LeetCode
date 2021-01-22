@@ -1,0 +1,4 @@
+
+char * shortestPalindrome(char * s){
+
+}
