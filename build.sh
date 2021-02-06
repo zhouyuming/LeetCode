@@ -1,1 +1,1 @@
-g++ -std=c++11 201-300/leetcode217.cpp -o test -lgtest -lpthread
+g++ -std=c++11 1001-1100/leetcode1046.cpp -o test -lgtest -lpthread
