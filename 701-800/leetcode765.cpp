@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-int getf(int* f, int x)
+/*int getf(int* f, int x)
 {
     if (f[x] == x) {
         return x;
@@ -43,6 +43,63 @@ int minSwapsCouples(int* row, int rowSize){
     for (int i = 0; i < tot; i++) {
         if (f[i] == i) {
             ret += m[i] - 1;
+        }
+    }
+    return ret;
+}*/
+
+int minSwapsCouples(int* row, int rowSize) 
+{
+    int n = rowSize;
+    int tot = n / 2;
+
+    int* graph[tot];
+    int graphColSize[tot];
+    memset(graphColSize, 0, sizeof(graphColSize));
+    for (int i = 0; i < n; i += 2) {
+        int l = row[i] / 2;
+        int r = row[i + 1] / 2;
+        if (l != r) {
+            graphColSize[l]++;
+            graphColSize[r]++;
+        }
+    }
+
+    for (int i = 0; i < tot; i++) {
+        graph[i] = (int*)malloc(sizeof(int) * graphColSize[i]);
+        graphColSize[i] = 0;
+    }
+
+    for (int i = 0; i < n; i += 2) {
+        int l = row[i] / 2;
+        int r = row[i + 1] / 2;
+        if (l != r) {
+            graph[l][graphColSize[l]++] = r;
+            graph[r][graphColSize[r]++] = l;
+        }
+    }
+    int visited[tot];
+    memset(visited, 0, sizeof(visited));
+    int que[n];
+    int ret = 0;
+    for (int i = 0; i < tot; i++) {
+        if (visited[i] == 0) {
+            int left = 0, right = 0;
+            visited[i] = 1;
+            que[right++] = i;
+            int cnt = 0;
+            
+            while (left < right) {
+                int x = que[left++];
+                cnt += 1;
+                for (int j = 0; j < graphColSize[x]; j++) {
+                    if (visited[graph[x][j]] == 0) {
+                        visited[graph[x][j]] = 1;
+                        que[right++] = graph[x][j];
+                    }
+                }
+            }
+            ret += cnt - 1;
         }
     }
     return ret;
