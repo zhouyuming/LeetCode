@@ -6,7 +6,7 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
-int numofRoot(struct TreeNode* root)
+/*int numofRoot(struct TreeNode* root)
 {
     if (!root) {
         return 0;
@@ -23,6 +23,27 @@ int kthSmallest(struct TreeNode* root, int k){
         return kthSmallest(root->right, k - cnt - 1);
     }
     return root->val;
+}*/
+
+void dfs(struct TreeNode* root, int k, int* cnt, int*res)
+{
+    if (root == NULL) {
+        return;
+    }
+
+    dfs(root->left, k, cnt, res);
+    (*cnt)++;
+    if (*cnt == k) {
+        *res = root->val;
+    }
+    dfs(root->right, k, cnt, res);
+}
+
+int kthSmallest(struct TreeNode* root, int k){
+    int res = 0;
+    int cnt = 0;
+    dfs(root, k, &cnt, &res);
+    return res;
 }
 
 int main(int argc, char **argv)
