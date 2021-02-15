@@ -10,7 +10,7 @@ typedef struct queue {
 } Queue;
 
 typedef struct {
-    Queue *queue1, *queue2;s
+    Queue *queue1, *queue2;
 } MyStack;
 
 Queue *initQueue(int k) {
@@ -56,26 +56,54 @@ MyStack* myStackCreate() {
 
 /** Push element x onto stack. */
 void myStackPush(MyStack* obj, int x) {
-
+    if (isEmpty(obj->queue1)) {
+        enQueue(obj->queue2, x);
+    } else {
+        enQueue(obj->queue1, x);
+    }
 }
 
 /** Removes the element on top of the stack and returns that element. */
 int myStackPop(MyStack* obj) {
-
+    if (isEmpty(obj->queue1)) {
+        while (obj->queue2->head != obj->queue2->rear) {
+            enQueue(obj->queue1, deQueue(obj->queue2));
+        }
+        return deQueue(obj->queue2);
+    }
+    while (obj->queue1->head != obj->queue1->rear) {
+        enQueue(obj->queue2, deQueue(obj->queue1));
+    }
+    return deQueue(obj->queue1);
 }
 
 /** Get the top element. */
 int myStackTop(MyStack* obj) {
-
+    if (isEmpty(obj->queue1)) {
+        return obj->queue2->data[obj->queue2->rear];
+    }
+    return obj->queue1->data[obj->queue1->rear];
 }
 
 /** Returns whether the stack is empty. */
 bool myStackEmpty(MyStack* obj) {
-
+    if (obj->queue1->head == -1 && obj->queue2->head == -1) {
+        return true;
+    }
+    return false;
 }
 
 void myStackFree(MyStack* obj) {
-
+    free(obj->queue1->data);
+    obj->queue1->data = NULL;
+    free(obj->queue1);
+    obj->queue1 = NULL;
+    free(obj->queue2->data);
+    obj->queue2->data = NULL;
+    free(obj->queue2);
+    obj->queue2 = NULL;
+    free(obj);
+    obj = NULL;
 }
 
 int main(int argc, char **argv)
