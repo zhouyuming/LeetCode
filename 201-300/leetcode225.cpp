@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#define LEN 20
+/*#define LEN 20
 
 typedef struct queue {
     int *data;
@@ -45,8 +45,6 @@ int isEmpty(Queue *obj) {
     return obj->head == -1;
 }
 
-/** Initialize your data structure here. */
-
 MyStack* myStackCreate() {
     MyStack *obj = (MyStack *)malloc(sizeof(MyStack));
     obj->queue1 = initQueue(LEN);
@@ -54,7 +52,6 @@ MyStack* myStackCreate() {
     return obj;
 }
 
-/** Push element x onto stack. */
 void myStackPush(MyStack* obj, int x) {
     if (isEmpty(obj->queue1)) {
         enQueue(obj->queue2, x);
@@ -63,7 +60,6 @@ void myStackPush(MyStack* obj, int x) {
     }
 }
 
-/** Removes the element on top of the stack and returns that element. */
 int myStackPop(MyStack* obj) {
     if (isEmpty(obj->queue1)) {
         while (obj->queue2->head != obj->queue2->rear) {
@@ -77,7 +73,6 @@ int myStackPop(MyStack* obj) {
     return deQueue(obj->queue1);
 }
 
-/** Get the top element. */
 int myStackTop(MyStack* obj) {
     if (isEmpty(obj->queue1)) {
         return obj->queue2->data[obj->queue2->rear];
@@ -85,7 +80,6 @@ int myStackTop(MyStack* obj) {
     return obj->queue1->data[obj->queue1->rear];
 }
 
-/** Returns whether the stack is empty. */
 bool myStackEmpty(MyStack* obj) {
     if (obj->queue1->head == -1 && obj->queue2->head == -1) {
         return true;
@@ -104,6 +98,53 @@ void myStackFree(MyStack* obj) {
     obj->queue2 = NULL;
     free(obj);
     obj = NULL;
+}*/
+
+typedef struct tagListNode {
+    struct tagListNode* next;
+    int val;
+} ListNode;
+
+typedef struct {
+    ListNode* top;
+} MyStack;
+
+MyStack* myStackCreate() {
+    MyStack* stk = calloc(1, sizeof(MyStack));
+    return stk;
+}
+
+void myStackPush(MyStack* obj, int x) {
+    ListNode* node = malloc(sizeof(ListNode));
+    node->val = x;
+    node->next = obj->top;
+    obj->top = node;
+}
+
+int myStackPop(MyStack* obj) {
+    ListNode* node = obj->top;
+    int val = node->val;
+    obj->top = node->next;
+    free(node);
+
+    return val;
+}
+
+int myStackTop(MyStack* obj) {
+    return obj->top->val;
+}
+
+bool myStackEmpty(MyStack* obj) {
+    return (obj->top == NULL);
+}
+
+void myStackFree(MyStack* obj) {
+    while (obj->top != NULL) {
+        ListNode* node = obj->top;
+        obj->top = obj->top->next;
+        free(node);
+    }
+    free(obj);
 }
 
 int main(int argc, char **argv)
