@@ -1,5 +1,10 @@
 #include <gtest/gtest.h>
 
+int mycmp(const void *a, const void *b)
+{
+    return *((int*)a) - *((int*)b);
+}
+
 int arrayPairSum(int* nums, int numsSize){
     qsort(nums, numsSize, sizeof(int), mycmp);
     int ans = 0;
