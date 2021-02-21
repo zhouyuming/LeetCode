@@ -87,7 +87,7 @@ int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize){
     }
 }*/
 
-int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize)
+/*int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize)
 {
     int q[numsSize];
     int left = 0;
@@ -110,6 +110,31 @@ int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize)
             left++;
         }
         ans[(*returnSize)++] = nums[q[left]];
+    }
+    return ans;
+}*/
+
+int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize) {
+    int prefixMax[numsSize];
+    int suffixMax[numsSize];
+    for (int i = 0; i < numsSize; i++) {
+        if (i % k == 0) {
+            prefixMax[i] = nums[i];
+        } else {
+            prefixMax[i] = fmax(prefixMax[i - 1], nums[i]);
+        }
+    }
+    for (int i = numsSize - 1; i >= 0; i--) {
+        if (i == numsSize - 1 || (i + 1) % k == 0) {
+            suffixMax[i] = nums[i];
+        } else {
+            suffixMax[i] = fmax(suffixMax[i + 1], nums[i]);
+        }
+    }
+    *returnSize = 0;
+    int* ans = malloc(sizeof(int) * (numsSize - k + 1));
+    for (int i = 0; i <= numsSize - k; ++i) {
+        ans[(*returnSize)++] = fmax(suffixMax[i], prefixMax[i + k - 1]);
     }
     return ans;
 }
