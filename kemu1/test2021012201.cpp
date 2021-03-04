@@ -25,9 +25,107 @@ typedef struct {
     bool offer;
 } People;
 
+int mycmp(const void* a, const void* b)
+{
+    return ((People*)b)->score - ((People*)a)->score;
+}
+
+void InitPeoples(int *scores, int scoresSize, int **preference, int *preferenceColSize, People* peoples)
+{
+    for (int i = 0; i < scoresSize; i++) {
+        peoples[i].id = i;
+        peoples[i].score = scores[i];
+        peoples[i].partNum = preferenceColSize[i];
+        peoples[i].partId = (int*)malloc(preferenceColSize[i] * sizeof(int));
+        if (peoples[i].partId == NULL) {
+            return;
+        }
+        for (int j = 0; j < preferenceColSize[i]; j++) {
+            peoples[i].partId[j] = preference[i][j];
+        }
+        peoples[i].offer = false;
+    }
+    return;
+}
+
+void FreePeoples(int scoresSize, People* peoples)
+{
+    if (peoples == NULL) {
+        return;
+    }
+    for (int i = 0; i < scoresSize; i++) {
+        if (peoples[i].partId == NULL) {
+            free(peoples[i].partId);
+            peoples[i].partId = NULL;
+        }
+    }
+    free(peoples);
+    peoples = NULL;
+    return;
+}
+
+int StatisticParts(int numsSize, int* nums)
+{
+    int total = 0;
+    for (int i = 0; i < numsSize; i++) {
+        if (nums[i] != 0) {
+            total++;
+        }
+    }
+    return total;
+}
+
+int StatisticPeoples(int numsSize, People* peoples)
+{
+    int total = 0;
+    for (int i = 0; i < numsSize; i++) {
+        if (peoples[i].offer != true) {
+            total++;
+        }
+    }
+    return total;
+}
+
+void FindPeople(People* peoples, int i, int j, int* nums)
+{
+    for (int k = 0; k < peoples[j].partNum; k++) {
+        if (peoples[j].partId[k] == i) {
+            if (nums[i] > 0) {
+                nums[i]--;
+                peoples[j].offer = true;
+            }
+        }
+    }
+    return;
+}
+
 int *DepartmentRecruit(int *nums, int numsSize, int *scores, int scoresSize, int **preference, int preferenceSize, int *preferenceColSize, int *returnSize)
 {
+    People* peoples = (People*)malloc(scoresSize * sizeof(People));
+    if (peoples == NULL) {
+        return NULL;
+    }
 
+    InitPeoples(scores, scoresSize, preference, preferenceColSize, peoples);
+    qsort(peoples, scoresSize, sizeof(People), mycmp);
+    for (int i = 0; i < numsSize; i++) {
+        for (int j = 0; j < scoresSize; j++) {
+            if (peoples[j].offer) {
+                continue;
+            }
+            FindPeople(peoples, i, j, nums);
+        }
+    }
+    *returnSize = 2;
+    int* res = (int*)malloc((*returnSize) * sizeof(int));
+    if (res == NULL) {
+        FreePeoples(scoresSize, peoples);
+        return NULL;
+    }
+    res[0] = StatisticParts(numsSize, nums);
+    res[1] = StatisticPeoples(scoresSize, peoples);
+    FreePeoples(scoresSize, peoples);
+    return res;
 }
 
 int main(int argc, char **argv)
@@ -38,5 +136,30 @@ int main(int argc, char **argv)
 
 TEST(LeetCode, test001)
 {
+    int nums[3] = {0, 1, 0};
+    int scores[3] = {65, 65, 80};
 
+    int** preference = (int**)malloc(sizeof(int*) * 3);
+    preference[0] = (int*)malloc(sizeof(int) * 3);
+    preference[0][0] = 0;
+    preference[0][1] = 1;
+    preference[0][2] = 2;
+
+    preference[1] = (int*)malloc(sizeof(int) * 2);
+    preference[1][0] = 0;
+    preference[1][1] = 1;
+
+    preference[2] = (int*)malloc(sizeof(int));
+    preference[2][0] = 0;
+
+    int* preferenceColSize = (int*)malloc(sizeof(int) * 3);
+    preferenceColSize[0] = 3;
+    preferenceColSize[1] = 2;
+    preferenceColSize[2] = 1;
+
+    int returnSize = 0;
+
+    int* res = DepartmentRecruit(nums, 3, scores, 3, preference, 3, preferenceColSize, &returnSize);
+    EXPECT_EQ(res[0], 0);
+    EXPECT_EQ(res[1], 2);
 }
