@@ -1,1 +1,1 @@
-g++ -std=c++11 kemu1/test2021012201.cpp -o test -lgtest -lpthread
+g++ -std=c++11 401-500/leetcode474.cpp -o test -lgtest -lpthread
