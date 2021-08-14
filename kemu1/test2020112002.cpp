@@ -26,6 +26,7 @@ int NumberOfMountainSeen(int* height, int heightSize)
     int* right = (int*)malloc(sizeof(int) * heightSize);
     int numsSize = 0;
     int total = 0;
+    int tt = 0;
     
     right[heightSize - 1] = 0;
     for (int i = heightSize - 2; i >= 0; i--) {
